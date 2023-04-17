@@ -62,4 +62,4 @@ async def set_channel(ctx, channel: nextcord.TextChannel):
         await ctx.send('You must be an administrator to use this command.')
 
 # Load the client token from the config file
-client.run(config['DISCORD_client_TOKEN'])
+client.run(config['DISCORD_BOT_TOKEN'])
