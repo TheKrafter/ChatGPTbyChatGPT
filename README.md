@@ -13,7 +13,7 @@ ChatGPT is a simple Discord bot powered by OpenAI's GPT-3 language model. It lis
 
  1. Clone this repository and navigate to the project directory.
 
- 2. Install the required Python libraries by running pip install -r requirements.txt.
+ 2. Install the required Python libraries by running `pip install -r requirements.txt`.
 
  3. Create a new Discord bot and obtain its API token.
 
@@ -22,23 +22,21 @@ ChatGPT is a simple Discord bot powered by OpenAI's GPT-3 language model. It lis
  5. Create a config.yml file and fill in the following values:
 
      ```yaml
-
      OPENAI_API_KEY: <your_openai_api_key>
      DISCORD_BOT_TOKEN: <your_discord_bot_token>
      ```
 
- 6. Run the bot by running python bot.py.
+ 6. Run the bot by running `python3 bot.py`.
 
  7. Invite the bot to your Discord server by generating an invite link using the Discord Developer Portal.
 
  8. Use the /set_channel slash command to set the channel where the bot listens for messages:
 
      ```bash
-
       /set_channel #my-channel
      ```
 
-     Replace #my-channel with the name of the channel you want to use.
+     Replace `#my-channel` with the name of the channel you want to use.
 
  9. Start chatting with the bot! The bot will respond to any message sent in the specified channel.
 
