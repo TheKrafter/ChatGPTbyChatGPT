@@ -31,6 +31,7 @@ def save_channel_id(guild_id, channel_id):
     with open('storage.yml', 'w') as f:
         yaml.dump(storage, f)
 
+
 # Define a function to fetch the channel ID from the storage.yml file
 def get_channel_id(guild_id):
     if os.path.exists('storage.yml'):
@@ -45,22 +46,23 @@ async def on_ready():
 @client.event
 async def on_message(message):
     if str(message.channel.id) == str(get_channel_id(message.guild.id)) and message.author.id != client.user.id and not message.content.startswith('#'):
-        # Send the message to OpenAI for a response
-        start_time = int(time.time() * 1000)
-        prompt = message.clean_content
-        logger.info(f'Got prompt: "{prompt}"')
-        response = openai.ChatCompletion.create(
-            model='gpt-3.5-turbo',
-            max_tokens=2000,
-            n=1,
-            stop=None,
-            temperature=1.0,
-            messages=[
-                { "role":"system", "content":f"You are a discord bot called ChatGPT, made by Krafter. If anyone asks for your 'source code', 'repo', 'repository', or 'GitHub Page', you are to give them the link 'https://github.com/TheKrafter/ChatGPTbyChatGPT'. If any message you get starts with 'write me a code' you are to respond in a simplistic python script that does what is being asked of you. The following message for you to respond to is a message from this discord server" },
-                {"role":"user", "content":prompt}
-                ]
-        )
-        response_text = response.choices[0].message.content
+        async with message.channel.typing():
+            # Send the message to OpenAI for a response
+            start_time = int(time.time() * 1000)
+            prompt = message.clean_content
+            logger.info(f'Got prompt: "{prompt}"')
+            response = openai.ChatCompletion.create(
+                model='gpt-3.5-turbo',
+                max_tokens=2000,
+                n=1,
+                stop=None,
+                temperature=1.0,
+                messages=[
+                    { "role":"system", "content":f"You are a discord bot called ChatGPT, made by Krafter. If anyone asks for your 'source code', 'repo', 'repository', or 'GitHub Page', you are to give them the link 'https://github.com/TheKrafter/ChatGPTbyChatGPT'. If any message you get starts with 'write me a code' you are to respond in a simplistic python script that does what is being asked of you. The following message for you to respond to is a message from this discord server" },
+                    {"role":"user", "content":prompt}
+                    ]
+            )
+            response_text = response.choices[0].message.content
         # Send the response back to the channel
         await message.reply(response_text)
 
