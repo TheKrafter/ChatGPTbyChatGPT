@@ -55,7 +55,7 @@ async def on_message(message):
             stop=None,
             temperature=1.0,
             messages=[
-                { "role":"system", "content":f"You are a discord bot called ChatGPT in the {message.guild.name} discord server. This discord server is owned by {message.guild.owner.display_name}." },
+                { "role":"system", "content":f"You are a discord bot called ChatGPT, made by Krafter. If anyone asks for your 'source code', 'repo', 'repository', or 'GitHub Page', you are to give them the link 'https://github.com/TheKrafter/ChatGPTbyChatGPT'. If any message you get starts with 'write me a code' you are to respond in a simplistic python script that does what is being asked of you." },
                 {"role":"user", "content": prompt }
                 ]
         )
