@@ -3,11 +3,12 @@ import nextcord
 from nextcord.ext import commands
 import openai
 import yaml
-from dotenv import load_dotenv
 
-load_dotenv()  # Load the .env file containing your OpenAI API key
-openai.api_key = os.getenv('OPENAI_API_KEY')
+# Load the config file
+with open('config.yml', 'r') as f:
+    config = yaml.safe_load(f)
 
+openai.api_key = config['OPENAI_API_KEY']
 bot = commands.Bot(command_prefix='!')
 
 # Define a function to save the channel ID to the storage.yml file
@@ -56,4 +57,5 @@ async def set_channel(ctx, channel: nextcord.TextChannel):
     else:
         await ctx.send('You must be an administrator to use this command.')
 
-bot.run('YOUR_DISCORD_BOT_TOKEN')
+# Load the bot token from the config file
+bot.run(config['DISCORD_BOT_TOKEN'])
