@@ -9,7 +9,11 @@ with open('config.yml', 'r') as f:
     config = yaml.safe_load(f)
 
 openai.api_key = config['OPENAI_API_KEY']
-bot = commands.Bot(command_prefix='!')
+
+intents = nextcord.Intents.default()
+intents.messages = True
+
+client = nextcord.Client()
 
 # Define a function to save the channel ID to the storage.yml file
 def save_channel_id(guild_id, channel_id):
@@ -28,11 +32,11 @@ def get_channel_id(guild_id):
             storage = yaml.safe_load(f)
             return storage['guilds'].get(str(guild_id), {}).get('channel_id')
 
-@bot.event
+@client.event
 async def on_ready():
-    print(f'{bot.user} has connected to Discord!')
+    print(f'{client.user} has connected to Discord!')
 
-@bot.event
+@client.event
 async def on_message(message):
     if message.channel.id == get_channel_id(message.guild.id):
         # Send the message to OpenAI for a response
@@ -49,7 +53,7 @@ async def on_message(message):
         await message.channel.send(response_text)
 
 # Define a slash command to set the channel ID
-@bot.slash_command(name='set_channel', description='Set the channel where the bot listens for messages')
+@client.slash_command(name='set_channel', description='Set the channel where the client listens for messages')
 async def set_channel(ctx, channel: nextcord.TextChannel):
     if ctx.author.guild_permissions.administrator:
         save_channel_id(ctx.guild.id, channel.id)
@@ -57,5 +61,5 @@ async def set_channel(ctx, channel: nextcord.TextChannel):
     else:
         await ctx.send('You must be an administrator to use this command.')
 
-# Load the bot token from the config file
-bot.run(config['DISCORD_BOT_TOKEN'])
+# Load the client token from the config file
+client.run(config['DISCORD_client_TOKEN'])
