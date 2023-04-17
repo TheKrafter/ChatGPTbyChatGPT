@@ -66,7 +66,7 @@ async def on_message(message):
 # Define a slash command to set the channel ID
 @client.slash_command(name='set_channel', description='Set the channel where the client listens for messages')
 async def set_channel(ctx, channel: nextcord.TextChannel):
-    if ctx.author.guild_permissions.administrator:
+    if ctx.user.guild_permissions.administrator:
         save_channel_id(ctx.guild.id, channel.id)
         await ctx.send(f'Channel set to {channel.mention}!')
     else:
