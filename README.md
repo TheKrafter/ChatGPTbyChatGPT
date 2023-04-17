@@ -51,4 +51,4 @@ This bot was created by [Your Name Here]. Feel free to use and modify this code 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ### Disclaimer
-This project is ENTIRELY written by OpenAI's ChatGPT (except for the text under this header). Whether it works or not is not my problem.
+This project is mostly written by OpenAI's ChatGPT (except for the text under this header). Whether it works or not is not my problem.
