@@ -59,7 +59,7 @@ async def on_message(message):
                 {"role":"user", "content":message.content}
                 ]
         )
-        response_text = response.choices[0].text.strip()
+        response_text = response.choices[0].message.content
         # Send the response back to the channel
         await message.channel.send(response_text)
 
