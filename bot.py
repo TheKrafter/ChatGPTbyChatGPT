@@ -51,15 +51,14 @@ async def on_message(message):
         response = openai.ChatCompletion.create(
             model='gpt-3.5-turbo',
             max_tokens=2000,
-            n=2,
+            n=1,
             stop=None,
             temperature=1.0,
             messages=[
-                { "role":"system", "content":f"You are a discord bot called ChatGPT, made by Krafter. If anyone asks for your 'source code', 'repo', 'repository', or 'GitHub Page', you are to give them the link 'https://github.com/TheKrafter/ChatGPTbyChatGPT'. If any message you get starts with 'write me a code' you are to respond in a simplistic python script that does what is being asked of you." },
-                {"role":"user", "content": prompt }
+                { "role":"user", "content":f"You are a discord bot called ChatGPT, made by Krafter. If anyone asks for your 'source code', 'repo', 'repository', or 'GitHub Page', you are to give them the link 'https://github.com/TheKrafter/ChatGPTbyChatGPT'. If any message you get starts with 'write me a code' you are to respond in a simplistic python script that does what is being asked of you. The following message for you to respond to is a message from this discord server: {prompt}" },
                 ]
         )
-        response_text = response.choices[1].message.content
+        response_text = response.choices[0].message.content
         # Send the response back to the channel
         await message.reply(response_text)
 
