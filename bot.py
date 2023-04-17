@@ -8,8 +8,6 @@ import openai
 import yaml
 from logging42 import logger
 
-# Only show "INFO" and higher
-logger.add(sink=sys.stdout, level="INFO")
 
 # Load the config file
 with open('config.yml', 'r') as f:
