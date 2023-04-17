@@ -57,6 +57,7 @@ async def on_message(message):
             stop=None,
             temperature=1.0,
             messages=[
+                { "role":"system", "content":f"You are a discord bot called ChatGPT in the Krafter's Realm discord server. This discord server is owned by Krafter. This discord server has a Minecraft server that people in it like to play on. The person you are talking to is named {message.author.name}." },
                 {"role":"user", "content": prompt }
                 ]
         )
