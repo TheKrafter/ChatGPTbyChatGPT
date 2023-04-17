@@ -51,10 +51,10 @@ async def on_message(message):
         response = openai.Completion.create(
             engine='davinci',
             prompt=message.content,
-            max_tokens=50,
+            max_tokens=2000,
             n=1,
             stop=None,
-            temperature=1,
+            temperature=1.0,
         )
         response_text = response.choices[0].text.strip()
         # Send the response back to the channel
