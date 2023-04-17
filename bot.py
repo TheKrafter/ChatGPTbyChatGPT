@@ -48,13 +48,16 @@ async def on_message(message):
     if str(message.channel.id) == str(get_channel_id(message.guild.id)) and message.author.id != client.user.id:
         # Send the message to OpenAI for a response
         start_time = int(time.time() * 1000)
-        response = await openai.ChatCompletion.acreate(
+        response = openai.ChatCompletion.create(
             engine='gpt-3.5-turbo',
-            prompt=message.content,
             max_tokens=2000,
             n=1,
             stop=None,
             temperature=1.0,
+            messages=[
+                {"role": "user", "content": "You are a bot in a discord server. You agree to not say or do anything rude or inappropriate."},
+                {"role":"user", "content":message.content}
+                ]
         )
         response_text = response.choices[0].text.strip()
         # Send the response back to the channel
