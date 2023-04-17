@@ -45,7 +45,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if message.channel.id == get_channel_id(message.guild.id):
+    if str(message.channel.id) == str(get_channel_id(message.guild.id)):
         # Send the message to OpenAI for a response
         start_time = int(time.time() * 1000)
         response = openai.Completion.create(
