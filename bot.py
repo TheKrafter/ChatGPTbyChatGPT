@@ -1,8 +1,15 @@
 import os
+import sys
+import time
+
 import nextcord
 from nextcord.ext import commands
 import openai
 import yaml
+from logging42 import logger
+
+# Only show "INFO" and higher
+logger.add(sink=sys.stdout, level="INFO")
 
 # Load the config file
 with open('config.yml', 'r') as f:
@@ -34,12 +41,13 @@ def get_channel_id(guild_id):
 
 @client.event
 async def on_ready():
-    print(f'{client.user} has connected to Discord!')
+    logger.info(f'{client.user} has connected to Discord!')
 
 @client.event
 async def on_message(message):
     if message.channel.id == get_channel_id(message.guild.id):
         # Send the message to OpenAI for a response
+        start_time = int(time.time() * 1000)
         response = openai.Completion.create(
             engine='davinci',
             prompt=message.content,
@@ -51,6 +59,9 @@ async def on_message(message):
         response_text = response.choices[0].text.strip()
         # Send the response back to the channel
         await message.channel.send(response_text)
+
+        end_time = int(time.time() * 1000)
+        logger.success(f'Responded to a prompt in {start_time - end_time}ms!')
 
 # Define a slash command to set the channel ID
 @client.slash_command(name='set_channel', description='Set the channel where the client listens for messages')
