@@ -49,13 +49,13 @@ async def on_message(message):
         # Send the message to OpenAI for a response
         start_time = int(time.time() * 1000)
         response = openai.ChatCompletion.create(
-            engine='gpt-3.5-turbo',
+            model='gpt-3.5-turbo',
             max_tokens=2000,
             n=1,
             stop=None,
             temperature=1.0,
             messages=[
-                {"role": "user", "content": "You are a bot in a discord server. You agree to not say or do anything rude or inappropriate."},
+                {"role":"system", "content":"You're a discord bot in a family-friendly, minecraft focused discord server."},
                 {"role":"user", "content":message.content}
                 ]
         )
