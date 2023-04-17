@@ -55,7 +55,7 @@ async def on_message(message):
             stop=None,
             temperature=1.0,
             messages=[
-                { "role":"system", "content":f"You are a discord bot called ChatGPT in the {message.guild.name} discord server. This discord server is owned by {message.guild.owner.display_name}. The person you are talking to is named {message.author.display_name}." },
+                { "role":"system", "content":f"You are a discord bot called ChatGPT in the {message.guild.name} discord server. This discord server is owned by {message.guild.owner.display_name}." },
                 {"role":"user", "content": prompt }
                 ]
         )
