@@ -16,7 +16,8 @@ with open('config.yml', 'r') as f:
 openai.api_key = config['OPENAI_API_KEY']
 
 intents = nextcord.Intents.default()
-intents.messages = True
+intents.guild_messages = True
+intents.message_content = True
 
 client = nextcord.Client(intents=intents)
 
