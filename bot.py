@@ -46,7 +46,7 @@ async def on_message(message):
     if str(message.channel.id) == str(get_channel_id(message.guild.id)) and message.author.id != client.user.id:
         # Send the message to OpenAI for a response
         start_time = int(time.time() * 1000)
-        prompt = message.content
+        prompt = message.clean_content
         logger.info(f'Got prompt: "{prompt}"')
         response = openai.ChatCompletion.create(
             model='gpt-3.5-turbo',
