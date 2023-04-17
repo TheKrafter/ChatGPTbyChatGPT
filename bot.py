@@ -49,7 +49,7 @@ async def on_message(message):
         # Send the message to OpenAI for a response
         start_time = int(time.time() * 1000)
         response = openai.Completion.create(
-            engine='davinci',
+            engine='gpt-3.5-turbo',
             prompt=message.content,
             max_tokens=2000,
             n=1,
