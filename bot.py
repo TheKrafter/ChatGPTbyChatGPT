@@ -18,7 +18,7 @@ openai.api_key = config['OPENAI_API_KEY']
 intents = nextcord.Intents.default()
 intents.messages = True
 
-client = nextcord.Client()
+client = nextcord.Client(intents=intents)
 
 # Define a function to save the channel ID to the storage.yml file
 def save_channel_id(guild_id, channel_id):
