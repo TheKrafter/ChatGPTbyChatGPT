@@ -55,11 +55,10 @@ async def on_message(message):
             stop=None,
             temperature=1.0,
             messages=[
-                {"role":"system", "content":"You're a discord bot in a family-friendly, minecraft focused discord server."},
                 {"role":"user", "content":message.content}
                 ]
         )
-        response_text = response.choices[1].message.content
+        response_text = response.choices[0].message.content
         # Send the response back to the channel
         await message.channel.send(response_text)
 
