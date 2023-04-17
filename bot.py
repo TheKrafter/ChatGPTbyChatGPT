@@ -51,7 +51,7 @@ async def on_message(message):
         response = openai.ChatCompletion.create(
             model='gpt-3.5-turbo',
             max_tokens=2000,
-            n=1,
+            n=2,
             stop=None,
             temperature=1.0,
             messages=[
@@ -59,7 +59,7 @@ async def on_message(message):
                 {"role":"user", "content": prompt }
                 ]
         )
-        response_text = response.choices[0].message.content
+        response_text = response.choices[1].message.content
         # Send the response back to the channel
         await message.reply(response_text)
 
