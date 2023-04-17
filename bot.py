@@ -61,7 +61,7 @@ async def on_message(message):
         await message.channel.send(response_text)
 
         end_time = int(time.time() * 1000)
-        logger.success(f'Responded to a prompt in {start_time - end_time}ms!')
+        logger.success(f'Responded to a prompt in {end_time - start_time}ms!')
 
 # Define a slash command to set the channel ID
 @client.slash_command(name='set_channel', description='Set the channel where the client listens for messages')
