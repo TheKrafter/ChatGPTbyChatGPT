@@ -44,7 +44,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if str(message.channel.id) == str(get_channel_id(message.guild.id)) and message.author.id != client.user.id:
+    if str(message.channel.id) == str(get_channel_id(message.guild.id)) and message.author.id != client.user.id and not message.content.startswith('#'):
         # Send the message to OpenAI for a response
         start_time = int(time.time() * 1000)
         prompt = message.clean_content
