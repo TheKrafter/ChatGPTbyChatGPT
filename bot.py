@@ -62,7 +62,7 @@ async def on_message(message):
         )
         response_text = response.choices[0].message.content
         # Send the response back to the channel
-        await message.channel.send(response_text)
+        await message.reply(response_text)
 
         end_time = int(time.time() * 1000)
         logger.success(f'Responded to a prompt in {end_time - start_time}ms!')
