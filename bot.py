@@ -54,7 +54,7 @@ async def on_message(message):
             max_tokens=50,
             n=1,
             stop=None,
-            temperature=0.5,
+            temperature=1,
         )
         response_text = response.choices[0].text.strip()
         # Send the response back to the channel
