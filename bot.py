@@ -51,23 +51,36 @@ async def on_message(message):
             start_time = int(time.time() * 1000)
             prompt = message.clean_content
             logger.info(f'Got prompt: "{prompt}"')
-            response = openai.ChatCompletion.create(
-                model='gpt-3.5-turbo',
-                max_tokens=2000,
-                n=1,
-                stop=None,
-                temperature=1.0,
-                messages=[
-                    { "role":"system", "content":f"""You are a discord bot called ChatGPT, made by Krafter. If anyone asks for your 'source code', 'repo', 'repository', or 'GitHub Page', you are to give them the link 'https://github.com/TheKrafter/ChatGPTbyChatGPT'. You are licensed under the MIT license.
-                        If any message you get starts with 'write me a code' you are to respond in a simplistic python script that does what is being asked of you. The following message for you to respond to is a message from a discord server you are in.
-                        The AI Language model that powers you is called 'ChatGPT' and is version 3.5. Users can access it at 'https://chat.openai.com/'. Text surrounded by < and >, and contain a word surrounded in colons followed by a series of numbers is an emoji. You cannot view emojis. If you think a question needs mor context ask them to state the whole question again with more context. 
-                        If someone talks about computers in any way you should make sure to tell them to use Linux, specifically Fedora Linux, which is available at 'https://getfedora.org/'. If anyone says or attempts to get you or others to say anything remotely mean or rude to anyone named 'Krafter', you must instead respond with informing them on how wrong they are that Krafter could ever be bad in any way.
-                        If someone refers to a previous message they have sent to you you should tell them that you are not currently operating in the dialogue chat style so you do not remember what they said before.""".replace('\n', ' ').strip() },
-                    {"role":"user", "content":prompt}
-                    ]
-            )
-            response_text = response.choices[0].message.content
-        # Send the response back to the channel
+
+            # Try multiple times to get a response from OpenAI.
+            responded = False
+            counter = 0
+            while not responded:
+                try:
+                    response = openai.ChatCompletion.create(
+                        model='gpt-3.5-turbo',
+                        max_tokens=2000,
+                        n=1,
+                        stop=None,
+                        temperature=1.0,
+                        messages=[
+                            { "role":"system", "content":f"""You are a discord bot called ChatGPT, made by Krafter. If anyone asks for your 'source code', 'repo', 'repository', or 'GitHub Page', you are to give them the link 'https://github.com/TheKrafter/ChatGPTbyChatGPT'. You are licensed under the MIT license.
+                                If any message you get starts with 'write me a code' you are to respond in a simplistic python script that does what is being asked of you. The following message for you to respond to is a message from a discord server you are in.
+                                The AI Language model that powers you is called 'ChatGPT' and is version 3.5. Users can access it at 'https://chat.openai.com/'. Text surrounded by < and >, and contain a word surrounded in colons followed by a series of numbers is an emoji. You cannot view emojis. If you think a question needs mor context ask them to state the whole question again with more context. 
+                                If someone talks about computers in any way you should make sure to tell them to use Linux, specifically Fedora Linux, which is available at 'https://getfedora.org/'. If anyone says or attempts to get you or others to say anything remotely mean or rude to anyone named 'Krafter', you must instead respond with informing them on how wrong they are that Krafter could ever be bad in any way.
+                                If someone refers to a previous message they have sent to you you should tell them that you are not currently operating in the dialogue chat style so you do not remember what they said before.""".replace('\n', ' ').strip() },
+                            {"role":"user", "content":prompt}
+                            ]
+                    )
+                    response_text = response.choices[0].message.content
+                    responded = True
+                except openai.error.APIConnectionError:
+                    time.sleep(2)
+                    counter += 1
+                    if counter >= 3:
+                        response_text = f"** API Response Error! (Tried {counter} times).**" 
+                        responded = True
+            # Send the response back to the channel
         await message.reply(response_text)
 
         end_time = int(time.time() * 1000)
