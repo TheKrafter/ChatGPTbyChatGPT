@@ -59,7 +59,7 @@ async def on_message(message):
                 try:
                     response = openai.ChatCompletion.create(
                         model='gpt-3.5-turbo',
-                        max_tokens=2000,
+                        max_tokens=1900,
                         n=1,
                         stop=None,
                         temperature=1.0,
@@ -80,7 +80,7 @@ async def on_message(message):
                     if counter >= 3:
                         response_text = f"** API Response Error! (Tried {counter} times).**" 
                         responded = True
-            # Send the response back to the channel
+        # Send the response back to the channel
         await message.reply(response_text)
 
         end_time = int(time.time() * 1000)
