@@ -24,6 +24,7 @@ ChatGPT is a simple Discord bot powered by OpenAI's GPT-3 language model. It lis
      ```yaml
      OPENAI_API_KEY: <your_openai_api_key>
      DISCORD_BOT_TOKEN: <your_discord_bot_token>
+     BOT_INVITE_LINK: <your_discord_bot_invite_link>
      ```
 
  6. Run the bot by running `python3 bot.py`.
