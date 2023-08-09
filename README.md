@@ -15,7 +15,7 @@ ChatGPT is a simple Discord bot powered by OpenAI's GPT-3 language model. It lis
 
  2. Install the required Python libraries by running `pip install -r requirements.txt`.
 
- 3. Create a new Discord bot and obtain its API token.
+ 3. Create a new Discord bot and obtain its API token. *(Note from a Human: Make sure to turn on Message Content Intent under privileged gateway intents!)*
 
  4. Obtain an API key for OpenAI's GPT-3 language model.
 
